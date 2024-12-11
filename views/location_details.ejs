@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= location.locationName %> - TreKathon</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #007575; /* Teal background */
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            background-color: #ffffff;
+            color: #007575;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .btn:hover {
+            background-color: #007575;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .profile-icon-button {
+            background-color: whitesmoke;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-icon-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: #008b8b;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #006666;
+        }
+
+        /* Location Detail Section */
+        .location-detail {
+            padding: 30px 20px;
+            text-align: center;
+            background-color: #fff;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+        }
+        /* Profile Icon and Logout Button Styling */
+.profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and button */
+}
+
+.profile-icon {
+    width: 40px; /* Size of the profile icon */
+    height: 40px;
+    border-radius: 50%; /* Makes the icon circular */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.logout-btn {
+    background-color: #ffffff; /* White button */
+    color: #0a6d75; /* Teal text */
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #0a6d75; /* Inverted colors on hover */
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+        .location-detail img {
+            width: 100%; /* Make the image take up the full container width */
+            height: 350px; /* Reduce height to make it smaller */
+            object-fit: cover; /* Maintain aspect ratio and cover the space */
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .location-detail h2 {
+            font-size: 36px;
+            margin: 20px 0;
+            color: #007575;
+        }
+
+        .location-detail p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Back Button Styling */
+        .back-button {
+            background-color: #007575;
+            color: #ffffff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #005757;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #007575;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin: 10px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #ffcc00;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+
+        .social-media ul {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0;
+        }
+
+        .social-media ul li {
+            display: inline;
+        }
+
+        .social-media ul li a {
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        footer p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #222;
+            padding: 10px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+
+            .location-detail {
+                padding: 30px 10px;
+            }
+
+            .location-detail img {
+                height: 250px; /* Adjust image height for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>TreKathon</h1>
+            <div class="auth-buttons">
+                <div class="profile-menu">
+                    <a href="/profile">
+                        <button class="profile-icon-button" id="profileIconButton">
+                            <img src="/profile_icon.png" alt="Profile" class="profile-icon">
+                        </button>
+                    </a>
+                    <a href="/signout" class="btn logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/treking">Trekking</a></li>
+            <li><a href="/hiking">Hiking</a></li>
+            <li><a href="/camping">Camping</a></li>
+            <li><a href="/mytrips">My Trips</a></li>
+        </ul>
+    </nav>
+
+    <section class="location-detail">
+        <img src="<%= location.imageUrl %>" alt="<%= location.locationName %>">
+        <h2><%= location.locationName %></h2>
+        <p><strong>Description:</strong> <%= location.Descriptions %></p>
+        <p><strong>Distance from Pune:</strong> <%= location.distanceFromPune %> km</p>
+        <p><strong>Attractions:</strong> <%= location.attractions %></p>
+        <p><strong>Best Time to Visit:</strong> <%= location.bestTimeToVisit %></p>
+        <p><strong>Difficulty Level:</strong> <%= location.difficultyLevel %></p>
+        <a href="/treking" class="back-button">Back to Trekking</a>
+    </section>
+
+    <!-- Footer with provided content -->
+  <footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>About Us</h4>
+            <ul>
+                <li><a href="/story">Our Story</a></li>
+                <li><a href="/mission">Mission & Vision</a></li>
+                <li><a href="team">Our Team</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <ul>
+                <li><a href="#">Email: info@trekathon.com</a></li>
+                <li><a href="#">Phone: +123-456-7890</a></li>
+                <li><a href="/contact">Contact Form</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Follow Us</h4>
+            <ul class="social-media">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+    <p>&copy; 2024 TreKathon. All rights reserved.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - TreKathon</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #0a6d75; /* Rich teal color */
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Auth buttons styling */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            background-color: #ffffff;
+            color: #0a6d75;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .btn:hover {
+            background-color: #0a6d75;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        /* Navigation styling */
+        nav {
+            background-color: #008b8b; /* Dark Cyan */
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #006666;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 20px;
+        }
+
+        /* Welcome section */
+        .admin-welcome {
+            text-align: center;
+            padding: 40px;
+            background-color: #d1f4f7; /* Light Cyan */
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .admin-welcome h2 {
+            font-size: 28px;
+            color: #007575; /* Teal */
+            margin-bottom: 10px;
+        }
+
+        .admin-welcome p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Statistics Section */
+        .statistics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .stat-card {
+            background-color: #ffffff;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 200px; /* Set a consistent width */
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            color: #007575;
+        }
+
+        /* Chart section */
+        .chart-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        #myChartTrips,
+        #myChartUsers {
+            max-width: 600px;
+            margin: 20px auto;
+            width: 100%; /* Make it responsive */
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #0a6d75;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container,
+            .auth-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .statistics {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat-card {
+                width: 90%; /* Allow cards to stack on smaller screens */
+            }
+        }
+    </style>
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Trekathon</h1>
+            <div class="auth-buttons">
+                <a href="/adminlogin" class="btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/admin_dash">Dashboard</a></li>
+            <li><a href="/add-adventure">Add Adventure</a></li>
+            <li><a href="/adminmanage-bookings">Manage Bookings</a></li>
+            <li><a href="/adminmanage_user">Manage Users</a></li>
+            <li><a href="/adminsettings">Add Trip</a></li>
+            <li><a href="/adminmanage_trips">Manage Trip</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="admin-welcome">
+            <h2>Welcome, Admin!</h2>
+        </section>
+
+        <section class="statistics">
+            <h2>Site Statistics</h2>
+            <div class="stat-card">
+                <h3>Total Users: <span id="totalUsers"><%= stats.totalUsers %></span></h3>
+                <h3>Male Users: <span id="maleUsersCount"><%= stats.maleUsers %></span></h3>
+                <h3>Female Users: <span id="femaleUsersCount"><%= stats.femaleUsers %></span></h3>
+            </div>
+            <div class="stat-card">
+                <h3>Total Bookings: <span id="totalBookings"><%= stats.totalBookings %></span></h3>
+            </div>
+            <div class="stat-card">
+                <h3>Total Trips: <span id="totalTrips"><%= stats.totalTrips %></span></h3>
+            </div>
+            <div class="stat-card">
+                <h3>Completed Trips: <span id="completedTrips"><%= stats.completedTrips %></span></h3>
+            </div>
+            <div class="stat-card">
+                <h3>Upcoming Trips: <span id="upcomingTrips"><%= stats.upcomingTrips %></span></h3>
+            </div>
+        </section>
+
+        <!-- Add a canvas for the bar graph -->
+        <section class="chart-section">
+            <h2>Statistics Bar Graph</h2>
+            <canvas id="myChartTrips"></canvas>
+        </section>
+
+        <section class="chart-section">
+            <h2>User Gender Ratios</h2>
+            <canvas id="myChartUsers"></canvas>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TreKathon. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Use getElementById to fetch the values from spans
+        const totalBookings = parseInt(document.getElementById('totalBookings').innerText);
+        const totalTrips = parseInt(document.getElementById('totalTrips').innerText);
+        const completedTrips = parseInt(document.getElementById('completedTrips').innerText);
+        const upcomingTrips = parseInt(document.getElementById('upcomingTrips').innerText);
+
+        // Fetch male and female user counts from the spans
+        const totalUsers = parseInt(document.getElementById('totalUsers').innerText);
+        const maleUsers = parseInt(document.getElementById('maleUsersCount').innerText);
+        const femaleUsers = parseInt(document.getElementById('femaleUsersCount').innerText);
+
+        // JavaScript to create the trips and bookings bar graph
+        const ctxTrips = document.getElementById('myChartTrips').getContext('2d');
+        const myChartTrips = new Chart(ctxTrips, {
+            type: 'bar',
+            data: {
+                labels: ['Total Trips', 'Upcoming Trips', 'Completed Trips', 'Total Bookings'],
+                datasets: [{
+                    label: 'Count',
+                    data: [
+                        totalTrips,
+                        upcomingTrips,
+                        completedTrips,
+                        totalBookings
+                    ],
+                    backgroundColor: [
+                        'rgba(0, 139, 139, 0.5)',
+                        'rgba(60, 179, 113, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(255, 206, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 139, 139, 1)',
+                        'rgba(60, 179, 113, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // JavaScript to create the user gender ratio graph
+        const ctxUsers = document.getElementById('myChartUsers').getContext('2d');
+        const myChartUsers = new Chart(ctxUsers, {
+            type: 'doughnut',
+            data: {
+                labels: ['Male', 'Female'],
+                datasets: [{
+                    label: 'Users',
+                    data: [maleUsers, femaleUsers],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'User Gender Ratio'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

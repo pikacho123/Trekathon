@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Trip - TreKathon Admin</title>
+    <link rel="stylesheet" href="/CSS/admin-style.css">
+    <style>
+        /* Add some basic styling for the form */
+        .form-section {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-section input,
+        .form-section select,
+        .form-section textarea,
+        .form-section button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-section button {
+            background-color: #0a6d75;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-section button:hover {
+            background-color: #004f54;
+        }
+
+        #new-coordinator {
+            display: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const coordinatorSelect = document.getElementById('coordinatorId');
+            const newCoordinatorDiv = document.getElementById('new-coordinator');
+
+            coordinatorSelect.addEventListener('change', () => {
+                if (coordinatorSelect.value === 'new') {
+                    newCoordinatorDiv.style.display = 'block';
+                } else {
+                    newCoordinatorDiv.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Trekathon</h1>
+            <div class="auth-buttons">
+                <a href="/adminlogin" class="btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="admin-nav">
+        <ul>
+            <li><a href="/admin_dash">Dashboard</a></li>
+            <li><a href="/add-adventure">Add Adventure</a></li>
+            <li><a href="/adminmanage-bookings">Manage Bookings</a></li>
+            <li><a href="/adminmanage_user">Manage Users</a></li>
+            <li><a href="/adminsettings">Add Trip</a></li>
+            <li><a href="/adminmanage_trips">Manage Trip</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="form-section">
+            <form action="/submit-trip" method="POST">
+                <label for="tripName">Trip Name:</label>
+                <input type="text" id="tripName" name="tripName" required>
+
+                <label for="locationId">Location:</label>
+                <select id="locationId" name="locationId" required>
+                    <option value="">Select a Location</option>
+                    <% if (results && results.length > 0) { %>
+                        <% results.forEach(location => { %>
+                            <option value="<%= location.id %>"><%= location.locationName %></option>
+                        <% }); %>
+                    <% } else { %>
+                        <option value="">No locations available</option>
+                    <% } %>
+                </select>
+
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" required>
+
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" required>
+
+                <label for="coordinatorId">Coordinator:</label>
+                <select id="coordinatorId" name="coordinatorId" required>
+                    <option value="">Select a Coordinator</option>
+                    <option value="1">Abhishek Singh</option>
+                    <option value="2">Suryatej Patil</option>
+                    <option value="new">Add New Coordinator</option>
+                </select>
+
+                <!-- Optional fields for adding a new coordinator -->
+                <div id="new-coordinator">
+                    <label for="new-coordinator-name">New Coordinator Name:</label>
+                    <input type="text" id="new-coordinator-name" name="new_coordinator_name">
+
+                    <label for="new-coordinator-contact">New Coordinator Contact:</label>
+                    <input type="text" id="new-coordinator-contact" name="new_coordinator_contact">
+                </div>
+
+                <label for="tripDescription">Trip Description:</label>
+                <textarea id="tripDescription" name="tripDescription" rows="5"></textarea>
+
+                <label for="vacancy">Vacancy:</label>
+                <input type="number" id="vacancy" name="vacancy" min="1" required>
+
+                <label for="price">Price (in ₹):</label>
+                <input type="number" step="0.01" id="price" name="price" min="0" required>
+
+                <button type="submit" class="btn">Save Trip</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TreKathon. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+
+        // Function to validate dates
+        function validateDates() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset time for comparison
+
+            if (startDate < today) {
+                alert("Start date cannot be in the past.");
+                startDateInput.focus();
+                return false;
+            }
+
+            if (endDate < startDate) {
+                alert("End date cannot be before the start date.");
+                endDateInput.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        // Attach validation to the form submit event
+        form.addEventListener('submit', (event) => {
+            if (!validateDates()) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+    });
+</script>
+
+</html>

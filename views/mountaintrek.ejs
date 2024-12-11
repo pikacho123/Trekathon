@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+header {
+    background-color: #0a6d75; /* Rich teal color */
+    color: #fff;
+    padding: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Auth buttons styling */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons .btn {
+    background-color: #ffffff;
+    color: #0a6d75;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-buttons .btn:hover {
+    background-color: #0a6d75;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+/* Navigation styling */
+nav {
+    background-color: #008b8b; /* Dark Cyan */
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #006666;
+}
+
+/* Hero section styling */
+/* Hero section styling with video */
+.hero {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video covers the area and maintains aspect ratio */
+    z-index: -1; /* Keeps the video behind the content */
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1; /* Above the video but below the content */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Ensures content is above the video and overlay */
+}
+
+.hero h2 {
+    font-size: 48px;
+    color: #f8f8f8;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8); /* Enhanced shadow for better readability */
+}
+
+.hero p {
+    font-size: 24px;
+    color: #f8f8f8;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+
+/* Epic Destinations section styling */
+.epic-destinations {
+    padding: 50px 20px;
+    background-color: #d1f4f7; /* Light Cyan */
+    text-align: center;
+}
+
+.epic-destinations h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #007575; /* Teal */
+}
+
+.destination {
+    display: inline-block;
+    width: 30%;
+    margin: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s;
+}
+
+.destination:hover {
+    transform: scale(1.05); /* Hover effect */
+}
+
+.destination img {
+    width: 100%;
+    height: auto;
+}
+
+.destination h3 {
+    font-size: 24px;
+    margin: 10px;
+    color: #006666;
+}
+
+.destination p {
+    font-size: 16px;
+    margin: 10px;
+    color: #555;
+}
+
+/* Buttons inside destination */
+.destination .btn {
+    display: block;
+    background-color: #007575;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.destination .btn:hover {
+    background-color: #005757;
+}
+
+/* Registration form styling */
+.registration-form {
+    padding: 50px 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.registration-form h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #007575;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #007575;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #005757;
+}
+
+/* Reset some default browser styling */
+body, h3, p {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+.profile-icon-button {
+    background-color: whitesmoke; /* Make background transparent */
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Small padding */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.profile-icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
+}
+
+.profile-icon {
+    width: 40px; /* Smaller icon size */
+    height: 40px; /* Smaller icon size */
+}
+.logout-btn {
+    background-color: #ffffff; /* White button */
+    color: #0a6d75; /* Teal text */
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #0a6d75; /* Inverted colors on hover */
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+/* Container for the cards */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Card styling */
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 400px;
+    cursor: pointer;
+}
+.card img {
+    width: 100%; /* Keeps the width responsive */
+    height: 200px; /* Sets a fixed height for square dimensions */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+
+/* Content inside the card */
+.card-content {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Animation on hover */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Button inside the card */
+.card button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #0a6d75;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.card button:hover {
+    background-color: #0056b3;
+}
+
+/* Footer styling */
+footer {
+    background-color: #0a6d75;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ffcc00;
+}
+
+.social-media {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.social-media li {
+    margin-right: 10px;
+}
+
+footer p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #222;
+    padding: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-container, .auth-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .destination {
+        width: 100%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>TreKathon</h1>
+            <div class="auth-buttons">
+                <!-- Profile Icon and Logout Button -->
+                <div class="profile-menu">
+                    <img src="/profile_icon.png" alt="Profile" class="profile-icon">
+                    <a href="/signout" class="btn logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+</header>
+
+    <nav>
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/treking">Trekking</a></li>
+            <li><a href="/hiking">Hiking</a></li>
+            <li><a href="/camping">Camping</a></li>
+            <li><a href="/mytrips">MyTrips</a></li>
+        </ul>
+    </nav>
+
+    <section class="epic-destinations">
+        <h2>Explore More Destinations</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="h1.avif" alt="Harishchandragad">
+                <div class="card-content">
+                    <h3>Harishchandragad Trek</h3>
+                    <p>Discover the historical Harishchandragad fort and the breathtaking Konkan Kada.</p>
+                    <button onclick="alert('Please log in or sign up to book your trek.'); window.location.href='login.html';">Book Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="r1.jpg" alt="Rajgad Fort">
+                <div class="card-content">
+                    <h3>Rajgad Fort Trek</h3>
+                    <p>Explore the capital of the Maratha Empire with this exhilarating trek.</p>
+                    <button onclick="alert('Please log in or sign up to book your trek.'); window.location.href='login.html';">Book Now</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="k1.webp" alt="Kalsubai Peak">
+                <div class="card-content">
+                    <h3>Kalsubai Peak</h3>
+                    <p>Climb the highest peak in Maharashtra for a breathtaking view.</p>
+                    <button onclick="alert('Please log in or sign up to book your trek.'); window.location.href='login.html';">Book Now</button>
+                </div>
+                </div>
+                <div class="card">
+                    <img src="abc.jpg" alt="Kalsubai Peak">
+                    <div class="card-content">
+                        <h3>Sinhgad Fort</h3>
+                        <p>"Embark on Thrilling Treks to Discover Majestic Forts and Scenic Peaks!"</p>
+                        <button onclick="alert('Please log in or sign up to book your trek.'); window.location.href='login.html';">Book Now</button>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Footer with provided content -->
+  <footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>About Us</h4>
+            <ul>
+                <li><a href="/story">Our Story</a></li>
+                <li><a href="/mission">Mission & Vision</a></li>
+                <li><a href="team">Our Team</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <ul>
+                <li><a href="#">Email: info@trekathon.com</a></li>
+                <li><a href="#">Phone: +123-456-7890</a></li>
+                <li><a href="/contact">Contact Form</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Follow Us</h4>
+            <ul class="social-media">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+    <p>&copy; 2024 TreKathon. All rights reserved.</p>
+</footer>
+</body>
+</html>

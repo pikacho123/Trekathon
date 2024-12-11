@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Users</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header styling */
+        header {
+            background-color: #0a6d75; /* Rich teal color */
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Auth buttons styling */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .auth-buttons .btn {
+            background-color: #ffffff;
+            color: #0a6d75;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .auth-buttons .btn:hover {
+            background-color: #0a6d75;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+        
+        /* Navigation styling */
+        nav {
+            background-color: #008b8b; /* Dark Cyan */
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        nav ul li {
+            display: inline;
+        }
+        
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #006666;
+        }
+        
+        /* Main Content Styling */
+        main {
+            padding: 20px;
+        }
+        
+        /* User Management Section */
+        .admin-users {
+            background-color: #fff;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-users h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007575;
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table th {
+            background-color: #0a6d75;
+            color: #fff;
+            font-weight: normal;
+        }
+        
+        table td {
+            color: #333;
+        }
+        
+        table tr:hover {
+            background-color: #f4f4f4;
+        }
+        
+        /* Action buttons inside tables */
+        table .btn {
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        
+        table .btn.cancel {
+            background-color: #ff4c4c;
+        }
+        
+        table .btn.cancel:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Pagination styling */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 10px 15px;
+            border: none;
+            margin: 0 5px;
+            background-color: #0a6d75;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pagination button:hover {
+            background-color: #005757;
+        }
+
+        .pagination button.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #0a6d75;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>TreKathon</h1>
+            <div class="auth-buttons">
+                <a href="/signout" class="btn logout-btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="admin-nav">
+        <ul>
+            <li><a href="/admin_dash">Dashboard</a></li>
+            <li><a href="/add-adventure">Add Adventure</a></li>
+            <li><a href="/adminmanage-bookings">Manage Bookings</a></li>
+            <li><a href="/adminmanage_user">Manage Users</a></li>
+            <li><a href="/adminsettings">Add Trip</a></li>
+            <li><a href="/adminmanage_trips">Manage Trip</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="admin-users">
+            <h2>User's List</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search users by username or email...">
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Registration Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable">
+                    <% users.forEach(user => { %>
+                        <tr data-user-id="<%= user.id %>">
+                            <td><%= user.id %></td>
+                            <td><%= user.username %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.created_at %></td>
+                            <td>
+                                <button class="btn cancel" data-user-id="<%= user.id %>" onclick="deleteUser(this)">Delete</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="prev" id="prevPage" disabled>Previous</button>
+                <button class="next" id="nextPage">Next</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TreKathon. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#userTable tr');
+
+            rows.forEach(row => {
+                const username = row.cells[1].textContent.toLowerCase();
+                const email = row.cells[2].textContent.toLowerCase();
+                if (username.includes(filter) || email.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // JavaScript for pagination functionality
+        let currentPage = 1;
+        const rowsPerPage = 10; // Adjust this as needed
+        const rows = document.querySelectorAll('#userTable tr');
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        function paginate() {
+            rows.forEach((row, index) => {
+                row.style.display = (index < currentPage * rowsPerPage && index >= (currentPage - 1) * rowsPerPage) ? '' : 'none';
+            });
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+        }
+
+        document.getElementById('prevPage').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                paginate();
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                paginate();
+            }
+        });
+
+        // Initial pagination setup
+        paginate();
+
+        // Delete user function
+        function deleteUser(button) {
+            const userId = button.getAttribute('data-user-id');
+            // Implement delete logic here (e.g., AJAX request)
+            console.log(`User with ID ${userId} will be deleted`);
+        }
+    </script>
+</body>
+</html>

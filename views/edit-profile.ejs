@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - TreKathon</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0a6d75;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            background-color: #ffffff;
+            color: #0a6d75;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .btn:hover {
+            background-color: #0a6d75;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .profile-icon-button {
+            background-color: whitesmoke;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-icon-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        footer {
+            background-color: #0a6d75;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #ffcc00;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+
+        .social-media {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .social-media li {
+            margin-right: 10px;
+        }
+
+        footer p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #222;
+            padding: 10px 0;
+        }
+
+        .profile-container {
+            padding: 50px 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .profile-header {
+            margin-bottom: 20px;
+        }
+
+        .profile-header h2 {
+            font-size: 30px;
+            color: #007575;
+        }
+
+        form {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            max-width: 100%; /* Ensures input does not exceed its parent width */
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding is included in the total width */
+        }
+
+        form button, .form-actions .btn {
+            background-color: #007575;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        form button:hover, .form-actions .btn:hover {
+            background-color: #005757;
+        }
+
+        @media (max-width: 768px) {
+            .header-container, .auth-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>TreKathon</h1>
+            <div class="auth-buttons">
+                <div class="profile-menu">
+                    <a href="/profile">
+                        <button class="profile-icon-button" id="profileIconButton">
+                            <img src="/profile_icon.png" alt="Profile" class="profile-icon">
+                        </button>
+                    </a>
+                    <a href="/signout" class="btn logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/treking">Trekking</a></li>
+            <li><a href="/hiking">Hiking</a></li>
+            <li><a href="/camping">Camping</a></li>
+            <li><a href="/mytrips">MyTrips</a></li>
+        </ul>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>Edit Profile</h2>
+        </div>
+        <form action="/update-profile" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="<%= user1.username %>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<%= user1.email %>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="Male" <%= user1.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                    <option value="Female" <%= user1.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                    <option value="Other" <%= user1.gender === 'Other' ? 'selected' : '' %>>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mobile_number">Mobile Number:</label>
+                <input type="text" id="mobile_number" name="mobile_number" value="<%= user1.mobile_number %>" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required><%= user1.address %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" value="<%= user1.dob %>" required
+                       max="<%= new Date(new Date().setFullYear(new Date().getFullYear() - 16)).toISOString().split('T')[0] %>">
+            </div>
+            
+            <div class="form-group">
+                <label for="blood_group">Blood Group:</label>
+                <input type="text" id="blood_group" name="blood_group" value="<%= user1.blood_group %>" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn">Save Changes</button>
+                <a href="/profile" class="btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+ <!-- Footer with provided content -->
+ <footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>About Us</h4>
+            <ul>
+                <li><a href="/story">Our Story</a></li>
+                <li><a href="/mission">Mission & Vision</a></li>
+                <li><a href="team">Our Team</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <ul>
+                <li><a href="#">Email: info@trekathon.com</a></li>
+                <li><a href="#">Phone: +123-456-7890</a></li>
+                <li><a href="/contact">Contact Form</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Follow Us</h4>
+            <ul class="social-media">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+    <p>&copy; 2024 TreKathon. All rights reserved.</p>
+</footer>
+</body>
+</html>

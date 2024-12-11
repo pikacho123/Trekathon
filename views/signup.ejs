@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TreKathon</title>
+    <link rel="stylesheet" href="signupstyle.css"> <!-- Link to the CSS -->
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa; /* Light cyan background for a refreshing look */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container for the signup form */
+        .container {
+            width: 360px; /* Adjust width as needed */
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .container h2 {
+            color: #007575; /* Teal color for a fresh, outdoorsy vibe */
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Card Styling */
+        .card {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Image Styling */
+        .card img {
+            width: 100%;
+            max-height: 200px; /* Limit the height of the image */
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Input Group Styling */
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .error-message {
+            color: #f44336; /* Red color for error messages */
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Button Styling */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007575; /* Matching button color */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #005757; /* Darker teal on hover */
+        }
+
+        /* Links Styling */
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        p a {
+            color: #007575; /* Matching link color */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        p a:hover {
+            color: #005757; /* Darker teal on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%; /* Adjust container size for smaller screens */
+            }
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const usernameError = document.getElementById('username-error');
+            const passwordError = document.getElementById('password-error');
+            const confirmPasswordError = document.getElementById('confirm-password-error');
+    
+            // Clear previous error messages
+            usernameError.textContent = '';
+            passwordError.textContent = '';
+            confirmPasswordError.textContent = '';
+    
+            // Validation: Username should start with an alphabet
+            const usernameRegex = /^[a-zA-Z]/;
+            if (!usernameRegex.test(username)) {
+                usernameError.textContent = 'Username must start with a letter.';
+                return false; // Prevent form submission
+            }
+    
+            // Password validation
+            // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                passwordError.textContent = 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.';
+                return false; // Prevent form submission
+            }
+    
+            // Validation: Password and Confirm Password should match
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match!';
+                return false; // Prevent form submission
+            }
+    
+            return true; // Allow form submission
+        }
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="signup-card">
+            <img src="trekathon.png" alt="Signup Image"> <!-- Add an image related to signup -->
+            <form action="/signup" method="post" id="signupForm" onsubmit="return validateForm()">
+                <div class="input-group">
+                    <label for="username">Name</label>
+                    <input type="text" id="username" name="username" required>
+                    <small id="username-error" class="error-message"></small>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Create Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <small id="password-error" class="error-message"></small>
+                </div>
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <small id="confirm-password-error" class="error-message"></small>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+                <p>Already have an account? <a href="/login">Login</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

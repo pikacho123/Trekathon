@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment - TreKathon</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #0a6d75; /* Rich teal color */
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            background-color: #ffffff;
+            color: #0a6d75;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .btn:hover {
+            background-color: #0a6d75;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        .profile-icon-button {
+            background-color: whitesmoke;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-icon-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Navigation styling */
+        nav {
+            background-color: #008b8b;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #006666;
+        }
+
+        /* Epic Destinations section styling */
+        .epic-destinations {
+            padding: 50px 20px;
+            background-color: #d1f4f7;
+            text-align: center;
+        }
+
+        .epic-destinations h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: #007575;
+        }
+
+        /* Profile Icon and Logout Button Styling */
+        .profile-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between icon and button */
+        }
+
+        .profile-icon {
+            width: 40px; /* Size of the profile icon */
+            height: 40px;
+            border-radius: 50%; /* Makes the icon circular */
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1); /* Slight zoom effect on hover */
+        }
+
+        .logout-btn {
+            background-color: #ffffff; /* White button */
+            color: #0a6d75; /* Teal text */
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #0a6d75; /* Inverted colors on hover */
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        /* Card Styling */
+        .payment-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 100px); /* Full height minus header and footer */
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 400px;
+            max-width: 90%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card h3 {
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            margin-bottom: 20px;
+        }
+
+        .card button {
+            padding: 10px 20px;
+            background-color: #0a6d75;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .card button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #0a6d75;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #ffcc00;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+
+        .social-media {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .social-media li {
+            margin-right: 10px;
+        }
+
+        footer p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #222;
+            padding: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-container, .auth-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .destination {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>TreKathon</h1>
+            <div class="auth-buttons">
+                <div class="profile-menu">
+                    <a href="/profile">
+                        <button class="profile-icon-button" id="profileIconButton">
+                            <img src="/profile_icon.png" alt="Profile" class="profile-icon">
+                        </button>
+                    </a>
+                    <a href="/signout" class="btn logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/treking">Trekking</a></li>
+            <li><a href="/hiking">Hiking</a></li>
+            <li><a href="/camping">Camping</a></li>
+            <li><a href="/mytrips">MyTrips</a></li>
+        </ul>
+    </nav>
+
+    <div class="payment-container">
+        <div class="card">
+            <div class="card-content">
+                <h3>Pay with Razorpay</h3>
+                <p>Make a payment for your trekking adventure securely using Razorpay.</p>
+                <button id="pay-button">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+   <!-- Footer with provided content -->
+  <footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>About Us</h4>
+            <ul>
+                <li><a href="/story">Our Story</a></li>
+                <li><a href="/mission">Mission & Vision</a></li>
+                <li><a href="team">Our Team</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <ul>
+                <li><a href="#">Email: info@trekathon.com</a></li>
+                <li><a href="#">Phone: +123-456-7890</a></li>
+                <li><a href="/contact">Contact Form</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Follow Us</h4>
+            <ul class="social-media">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+    <p>&copy; 2024 TreKathon. All rights reserved.</p>
+</footer>
+    <script>
+        document.getElementById('pay-button').onclick = async function(e) {
+            e.preventDefault();
+            
+            // Create the order
+            const orderResponse = await fetch('/create-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ amount: 50000 }), // Amount in paise
+            });
+
+            const orderData = await orderResponse.json();
+            
+            if (!orderResponse.ok) {
+                alert('Failed to create order: ' + orderData.error);
+                return;
+            }
+
+            // Configure Razorpay options
+            var options = {
+                key: "rzp_test_Hdn2zY77HAdaJq", // Enter the Key ID generated from the Razorpay Dashboard
+                amount: orderData.amount, // Amount in paise
+                currency: "INR",
+                name: "TreKathon",
+                description: "Payment for trekking adventure",
+                image: "/logo.png", // Your company's logo
+                order_id: orderData.id, // Pass the `id` of the created order
+                handler: function(response) {
+                    fetch('/verify-payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            order_id: response.razorpay_order_id,
+                            payment_id: response.razorpay_payment_id,
+                            signature: response.razorpay_signature,
+                            amount: orderData.amount
+                        }),
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                        } else {
+                            alert('Payment verification failed!');
+                        }
+                    })
+                    .catch(err => {
+                        alert('An error occurred: ' + err.message);
+                    });
+                },
+                prefill: {
+                    name: "Saurabh Pawar",
+                    email: "john.doe@example.com",
+                    contact: "9595194524",
+                },
+                notes: {
+                    address: "Razorpay Corporate Office",
+                },
+                theme: {
+                    color: "#0a6d75",
+                },
+            };
+
+            const rzp1 = new Razorpay(options);
+            rzp1.open();
+        };
+    </script>
+</body>
+</html>
+

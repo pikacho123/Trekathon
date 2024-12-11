@@ -1,0 +1,404 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trekking - TreKathon</title>
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #0a6d75; /* Rich teal color */
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Auth buttons styling */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            background-color: #ffffff;
+            color: #0a6d75;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .btn:hover {
+            background-color: #0a6d75;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+         /* Profile container */
+            .profile-container {
+                max-width: 800px;
+                margin: 50px auto;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+    
+            .profile-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+    
+            .profile-icon-button {
+                background-color: whitesmoke; /* Make background transparent */
+                border: 2px solid #ffffff; /* White border */
+                border-radius: 5px; /* Rounded corners */
+                padding: 5px; /* Small padding */
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            
+            .profile-icon-button:hover {
+                background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
+            }
+            
+            .profile-icon {
+                width: 40px; /* Smaller icon size */
+                height: 40px; /* Smaller icon size */
+            }
+            
+
+        .profile-icon-button {
+            background-color: whitesmoke; /* Make background transparent */
+            border: 2px solid #ffffff; /* White border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 5px; /* Small padding */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-icon-button:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
+        }
+
+        .profile-icon {
+            width: 40px; /* Smaller icon size */
+            height: 40px; /* Smaller icon size */
+        }
+
+        /* Navigation styling */
+        nav {
+            background-color: #008b8b; /* Dark Cyan */
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #006666;
+        }
+
+            /* Profile Icon and Logout Button Styling */
+.profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and button */
+}
+
+.profile-icon {
+    width: 40px; /* Size of the profile icon */
+    height: 40px;
+    border-radius: 50%; /* Makes the icon circular */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.logout-btn {
+    background-color: #ffffff; /* White button */
+    color: #0a6d75; /* Teal text */
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #0a6d75; /* Inverted colors on hover */
+    color: #ffffff;
+}
+        /* Section Titles */
+        h2 {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 28px;
+            color: #0a6d75;
+        }
+
+        h3 {
+            margin: 30px 0 10px;
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Team section styling */
+        .team-section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: #007575; /* Teal */
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member img {
+            width: 150px; /* Set a fixed width for member photos */
+            height: 150px; /* Set a fixed height for member photos */
+            border-radius: 50%; /* Circular shape */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member h3 {
+            margin: 10px;
+            color: #006666;
+        }
+
+        .team-member p {
+            margin: 10px;
+            color: #555;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.1); /* Slightly zoom in on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px); /* Lift up on hover */
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #0a6d75;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin: 0 20px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #ffcc00;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+
+        footer p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #222;
+            padding: 10px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container, .auth-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .team-member {
+                width: 100%;
+            }
+        }
+
+        /* Flexbox styling for team members */
+        .team-member-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>TreKathon</h1>
+            <div class="auth-buttons">
+                <div class="profile-menu">
+                    <a href="/profile">
+                        <button class="profile-icon-button" id="profileIconButton">
+                            <img src="/profile_icon.png" alt="Profile" class="profile-icon">
+                        </button>
+                    </a>
+                    <a href="/signout" class="btn logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/treking">Trekking</a></li>
+            <li><a href="/hiking">Hiking</a></li>
+            <li><a href="/camping">Camping</a></li>
+            <li><a href="/mytrips">MyTrips</a></li>
+        </ul>
+    </nav>
+
+    <div class="team-section">
+        <h2>Meet Our Team</h2>
+        <div class="team-member-container">
+            <div class="team-member">
+                <img src="bansal.jpg" alt="Shivam Bansal">
+                <h3>Shivam Bansal</h3>
+                <p>Developer</p>
+                <p class="team-info">Passionate about technology and Expert in navigation.</p>
+            </div>
+            <div class="team-member">
+                <img src="saurabh.jpg" alt="Saurabh Pawar">
+                <h3>Saurabh Pawar</h3>
+                <p>Developer</p>
+                <p class="team-info">Passionate about technology and outdoor adventures.</p>
+            </div>
+            <div class="team-member">
+                <img src="sneha.png" alt="Sneha Peherkar">
+                <h3>Sneha Peherkar</h3>
+                <p>Marketing Specialist</p>
+                <p class="team-info">Creative strategist with a love for nature.</p>
+            </div>
+            <div class="team-member">
+                <img src="patil.jpg" alt="Suryatej Patil">
+                <h3>Suryatej Patil</h3>
+                <p>Customer Support</p>
+                <p class="team-info">Dedicated to ensuring a great customer experience.</p>
+            </div>
+            <div class="team-member">
+                <img src="abhishek.png" alt="Abhishek Singh">
+                <h3>Abhishek Singh</h3>
+                <p>Operations Manager</p>
+                <p class="team-info">Streamlining operations for smooth journeys.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="/story">Our Story</a></li>
+                    <li><a href="mission">Mission & Vision</a></li>
+                    <li><a href="team">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li><a href="#">Email: info@trekathon.com</a></li>
+                    <li><a href="#">Phone: +123-456-7890</a></li>
+                    <li><a href="/contact">Contact Form</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul class="social-media">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 TreKathon. All rights reserved.</p>
+    </footer>
+</body>
+</html>

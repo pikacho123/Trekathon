@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Bookings - TreKathon Admin</title>
+    <link rel="stylesheet" href="/CSS/admin-style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #0a6d75; /* Rich teal color */
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Auth buttons styling */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            background-color: #ffffff;
+            color: #0a6d75;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .auth-buttons .btn:hover {
+            background-color: #0a6d75;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+
+        /* Navigation styling */
+        nav {
+            background-color: #008b8b; /* Dark Cyan */
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #006666;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 20px;
+        }
+
+        /* Bookings Section */
+        .bookings-section {
+            text-align: center; /* Center the content */
+            margin-bottom: 20px;
+        }
+
+        /* Dropdown styling */
+        select {
+            width: 300px; /* Set a wider width */
+            padding: 10px;
+            margin: 0 auto; /* Center the dropdown */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            border-color: #0a6d75; /* Highlight border on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #0a6d75;
+            color: #fff;
+            font-weight: normal;
+        }
+
+        table td {
+            color: #333;
+        }
+
+        table tr:hover {
+            background-color: #f4f4f4;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #0a6d75;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #0a6d75;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container, .auth-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            table {
+                width: 100%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <!-- <script>
+        // Function to fetch bookings based on selected trip
+function fetchBookingsByTrip() {
+    const tripId = document.getElementById('tripDropdown').value;
+
+    if (tripId) {
+        document.querySelector('.spinner').style.display = 'block'; // Show spinner
+
+        // Fetch bookings for the selected trip
+        fetch(`/getBookingsByTrip?tripId=${tripId}`)
+            .then(response => response.json())
+            .then(data => {
+                const bookingTableBody = document.querySelector('tbody');
+                bookingTableBody.innerHTML = ''; // Clear previous data
+
+                if (data.bookings.length > 0) {
+                    // Populate table with fetched bookings
+                    data.bookings.forEach(booking => {
+                        const row = `
+                            <tr>
+                                <td>${booking.booking_id}</td>
+                                <td>${booking.email}</td>
+                                <td>${booking.mobile}</td>
+                                <td>${booking.number_of_people}</td>
+                                <td>${booking.date}</td>
+                                <td>
+                                    <ul>
+                                        ${booking.participants.map(p => `<li>${p.name} (Age: ${p.age})</li>`).join('')}
+                                    </ul>
+                                </td>
+                            </tr>`;
+                        bookingTableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                    document.querySelector('.booking-table').style.display = 'table'; // Show the table
+                    document.getElementById('downloadPdfButton').style.display = 'inline-block'; // Show download button
+                } else {
+                    // Show message if no bookings are available for the selected trip
+                    bookingTableBody.innerHTML = '<tr><td colspan="6">No bookings available for this trip</td></tr>';
+                }
+
+                document.querySelector('.spinner').style.display = 'none'; // Hide spinner
+            })
+            .catch(error => {
+                console.error('Error fetching bookings:', error);
+                document.querySelector('.spinner').style.display = 'none'; // Hide spinner
+            });
+    } else {
+        // Clear the table if no trip is selected
+        document.querySelector('tbody').innerHTML = '';
+        document.querySelector('.booking-table').style.display = 'none'; // Hide the table
+        document.getElementById('downloadPdfButton').style.display = 'none'; // Hide the download button
+    }
+}
+// Function to download the bookings as PDF
+function downloadBookingsPdf() {
+    const tripId = document.getElementById('tripDropdown').value;
+    if (tripId) {
+        window.location.href = `/downloadBookingsPdf?tripId=${tripId}`;
+    }
+}
+
+    </script> -->
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Trekathon</h1>
+            <div class="auth-buttons">
+                <a href="/adminlogin" class="btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="admin-nav">
+        <ul>
+            <li><a href="/admin_dash">Dashboard</a></li>
+            <li><a href="/add-adventure">Add Adventure</a></li>
+            <li><a href="/adminmanage-bookings">Manage Bookings</a></li>
+            <li><a href="/adminmanage_user">Manage Users</a></li>
+            <li><a href="/adminsettings">Add Trip</a></li>
+            <li><a href="/adminmanage_trips">Manage Trip</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="bookings-section">
+            <h2>Manage Bookings by Trip</h2>
+
+            <!-- Dropdown to select a trip -->
+            <label for="tripDropdown">Select Trip:</label>
+            <select id="tripDropdown" onchange="fetchBookingsByTrip()">
+                <option value="">--Select a Trip--</option>
+                <% bookings.forEach(trip => { %>
+                    <option value="<%= trip.tripId %>"><%= trip.tripName %></option>
+                <% }); %>
+            </select>
+
+
+            <!-- Loading Spinner -->
+            <div class="spinner" style="display: none;"></div>
+
+            <!-- Booking Table -->
+            <table class="booking-table" style="display: none;"> <!-- Hide the table by default -->
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Number of People</th>
+                        <th>Date</th>
+                        <th>Participants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be dynamically populated by fetchBookingsByTrip() -->
+                </tbody>
+                
+            </table>
+            
+        </section>
+        <button id="downloadPdfButton" onclick="downloadBookingsPdf()" style="display: none;">Download Bookings as PDF</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TreKathon. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
+<script>
+    // Function to fetch bookings based on selected trip
+    function fetchBookingsByTrip() {
+        const tripId = document.getElementById('tripDropdown').value;
+
+        if (tripId) {
+            document.querySelector('.spinner').style.display = 'block'; // Show spinner
+
+            // Fetch bookings for the selected trip
+            fetch(`/getBookingsByTrip?tripId=${tripId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const bookingTableBody = document.querySelector('tbody');
+                    bookingTableBody.innerHTML = ''; // Clear previous data
+
+                    if (data.bookings.length > 0) {
+                        // Populate table with fetched bookings
+                        data.bookings.forEach(booking => {
+                            const row = `
+                                <tr>
+                                    <td>${booking.booking_id}</td>
+                                    <td>${booking.email}</td>
+                                    <td>${booking.mobile}</td>
+                                    <td>${booking.number_of_people}</td>
+                                    <td>${booking.date}</td>
+                                    <td>
+                                        <ul>
+                                            ${booking.participants.map(p => `<li>${p.name} (Age: ${p.age})</li>`).join('')}
+                                        </ul>
+                                    </td>
+                                </tr>`;
+                            bookingTableBody.insertAdjacentHTML('beforeend', row);
+                        });
+                        document.querySelector('.booking-table').style.display = 'table'; // Show the table
+                        document.getElementById('downloadPdfButton').style.display = 'inline-block'; // Show download button
+                    } else {
+                        // Show message if no bookings are available for the selected trip
+                        bookingTableBody.innerHTML = '<tr><td colspan="6">No bookings available for this trip</td></tr>';
+                    }
+
+                    document.querySelector('.spinner').style.display = 'none'; // Hide spinner
+                })
+                .catch(error => {
+                    console.error('Error fetching bookings:', error);
+                    document.querySelector('.spinner').style.display = 'none'; // Hide spinner
+                });
+        } else {
+            // Clear the table if no trip is selected
+            document.querySelector('tbody').innerHTML = '';
+            document.querySelector('.booking-table').style.display = 'none'; // Hide the table
+            document.getElementById('downloadPdfButton').style.display = 'none'; // Hide the download button
+        }
+    }
+
+    // Function to download the bookings as PDF
+    function downloadBookingsPdf() {
+        const { jsPDF } = window.jspdf;  // Get jsPDF from the global window object
+        const doc = new jsPDF();  // Create a new jsPDF instance
+
+        // Get the table content
+        const table = document.querySelector('table');
+        
+        // Convert table to an array of rows with text content
+        const rows = [];
+        const tableRows = table.querySelectorAll('tr');
+        
+        tableRows.forEach(row => {
+            const cells = row.querySelectorAll('td, th');
+            const rowData = [];
+            cells.forEach(cell => {
+                rowData.push(cell.textContent.trim());  // Extract text from each cell
+            });
+            rows.push(rowData);
+        });
+
+        // Add the table data to the PDF
+        doc.autoTable({
+            head: [rows[0]],  // Table header
+            body: rows.slice(1),  // Table body (excluding the header row)
+            startY: 20,  // Start the table below the title
+        });
+
+        // Download the PDF
+        doc.save('bookings.pdf');
+    }
+</script>

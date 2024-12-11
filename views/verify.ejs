@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification - TreKathon</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa; /* Light cyan background for a fresh feel */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Verification Container Styling */
+        .verification-container {
+            width: 320px; /* Small container size */
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 50px; /* Added to create some spacing from top */
+        }
+
+        /* Input Styling */
+        .verification-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Button Styling */
+        .verification-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007575; /* Matching button color */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .verification-container button:hover {
+            background-color: #005757; /* Darker teal on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .verification-container {
+                width: 90%; /* Adjust container size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-container">
+        <form action="/verify" method="post">
+            <h1>Verification Code</h1>
+      
+            <input type="hidden" name="username" value="<%= username %>">
+
+            <label for="verification-code"><b>Enter Verification Code:</b></label>
+            <input type="number" placeholder="Enter Code" name="otp" required>
+
+            <button type="submit">Verify</button>
+        </form>
+    </div>
+</body>
+</html>

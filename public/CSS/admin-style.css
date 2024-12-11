@@ -1,0 +1,251 @@
+/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+header {
+    background-color: #0a6d75; /* Rich teal color */
+    color: #fff;
+    padding: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Auth buttons styling */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons .btn {
+    background-color: #ffffff;
+    color: #0a6d75;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-buttons .btn:hover {
+    background-color: #0a6d75;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+/* Navigation styling */
+nav {
+    background-color: #008b8b; /* Dark Cyan */
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #006666;
+}
+
+/* Main Content Styling */
+main {
+    padding: 20px;
+}
+
+/* Welcome section */
+.admin-welcome {
+    text-align: center;
+    padding: 40px;
+    background-color: #d1f4f7; /* Light Cyan */
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.admin-welcome h2 {
+    font-size: 28px;
+    color: #007575; /* Teal */
+    margin-bottom: 10px;
+}
+
+.admin-welcome p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Form Section */
+.form-section {
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-section button {
+    background-color: #007575;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-section button:hover {
+    background-color: #005757;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #0a6d75;
+    color: #fff;
+    font-weight: normal;
+}
+
+table td {
+    color: #333;
+}
+
+table tr:hover {
+    background-color: #f4f4f4;
+}
+
+/* Action buttons inside tables */
+table .btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+table .btn.edit {
+    background-color: #007575;
+}
+
+table .btn.edit:hover {
+    background-color: #005757;
+}
+
+table .btn.cancel {
+    background-color: #ff4c4c;
+}
+
+table .btn.cancel:hover {
+    background-color: #c0392b;
+}
+
+/* Settings Section */
+.settings-section {
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.settings-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #007575;
+}
+
+/* Footer styling */
+footer {
+    background-color: #0a6d75;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-container, .auth-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+
+    table, .form-section, .settings-section {
+        width: 100%;
+    }
+}

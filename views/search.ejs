@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Search - TreKathon</title>
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzdPDaqmRQyx9Td6T1DNVQraiRuembKCc&libraries=places"></script>
+    <style>
+       /* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+header {
+    background-color: #0a6d75; /* Rich teal color */
+    color: black;
+    padding: 20px;
+    text-align: center;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Auth buttons styling */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons .btn {
+    background-color: #ffffff;
+    color: #0a6d75;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-buttons .btn:hover {
+    background-color: #0a6d75;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+  /* Profile container */
+  .profile-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-icon-button {
+    background-color: whitesmoke; /* Make background transparent */
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Small padding */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.profile-icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
+}
+
+.profile-icon {
+    width: 40px; /* Smaller icon size */
+    height: 40px; /* Smaller icon size */
+}
+
+.profile-details {
+    flex: 1;
+}
+
+.profile-details h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #0a6d75;
+}
+
+.profile-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.profile-details-table th, .profile-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.profile-details-table th {
+    background-color: #f4f4f4;
+    color: #0a6d75;
+    text-align: left;
+}
+
+.profile-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #0a6d75;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #005757;
+}
+
+/* Navigation styling */
+nav {
+    background-color: #008b8b; /* Dark Cyan */
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #006666;
+}
+
+/* Container styling */
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+/* Profile Icon and Logout Button Styling */
+.profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and button */
+}
+
+.profile-icon {
+    width: 40px; /* Size of the profile icon */
+    height: 40px;
+    border-radius: 50%; /* Makes the icon circular */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.logout-btn {
+    background-color: #ffffff; /* White button */
+    color: #0a6d75; /* Teal text */
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #0a6d75; /* Inverted colors on hover */
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+/* Form styling */
+form {
+    margin-bottom: 20px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form input[type="submit"] {
+    background-color: #0a6d75;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Map styling */
+#map {
+    height: 400px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+/* Footer styling */
+footer {
+    background-color: #0a6d75;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ffcc00;
+}
+
+footer p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #222;
+    padding: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-container, .auth-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* Profile Icon and Logout Button Styling */
+.profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and button */
+}
+
+.profile-icon {
+    width: 40px; /* Size of the profile icon */
+    height: 40px;
+    border-radius: 50%; /* Makes the icon circular */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.logout-btn {
+    background-color: #ffffff; /* White button */
+    color: #0a6d75; /* Teal text */
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #0a6d75; /* Inverted colors on hover */
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+
+    </style>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <!-- Navbar -->
+    <header>
+        <div class="header-container">
+            <h1>TreKathon</h1>
+            <div class="auth-buttons">
+                <div class="profile-menu">
+                    <a href="/profile">
+                        <button class="profile-icon-button" id="profileIconButton">
+                            <img src="/profile_icon.png" alt="Profile" class="profile-icon">
+                        </button>
+                    </a>
+                    <a href="/signout" class="btn logout-btn">Logout</a>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/treking">Trekking</a></li>
+            <li><a href="/hiking">Hiking</a></li>
+            <li><a href="/camping">Camping</a></li>
+            <li><a href="/mytrips">MyTrips</a></li>
+        </ul>
+    </nav>
+
+    <!-- Location Search Section -->
+    <div class="container">
+        <h1>Location Search</h1>
+        <form action="/searchLocation" method="post">
+            <input type="text" id="address" name="address" placeholder="Enter Address" required>
+            <input type="number" id="maxDistance" name="maxDistance" placeholder="Max Distance (in km)" min="1" required>
+            <input type="submit" value="Search">
+        </form>
+
+        <div id="map"></div>
+    </div>
+
+     <!-- Footer with provided content -->
+     <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="/story">Our Story</a></li>
+                    <li><a href="/mission">Mission & Vision</a></li>
+                    <li><a href="team">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li><a href="#">Email: info@trekathon.com</a></li>
+                    <li><a href="#">Phone: +123-456-7890</a></li>
+                    <li><a href="/contact">Contact Form</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul class="social-media">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 TreKathon. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
+
+    <!-- External JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let autocompleteDestination;
+
+        function initAutocomplete() {
+            autocompleteDestination = new google.maps.places.Autocomplete(
+                document.getElementById('address'), {
+                types: ['geocode']
+            });
+        }
+
+        let map;
+        let markers = [];
+
+        function initMap() {
+            const center = {
+                lat: 18.526794570067125,
+                lng: 73.84052432558
+            };
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: center,
+                zoom: 14
+            });
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var center = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map.setCenter(center);
+                    var userMarker = new google.maps.Marker({
+                        position: center,
+                        map: map,
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                    });
+                }, function () {
+                    handleLocationError(true, map.getCenter());
+                });
+            } else {
+                handleLocationError(false, map.getCenter());
+            }
+        }
+
+        window.addEventListener("load", initMap);
+        google.maps.event.addDomListener(window, 'load', initAutocomplete);
+    </script>
+</body>
+
+</html>

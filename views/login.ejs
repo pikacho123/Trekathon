@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TreKathon</title>
+    <style>
+        /* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0f7fa; /* Light cyan background for a fresh feel */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Login Container Styling */
+.login-container {
+    width: 320px; /* Small container size */
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 50px; /* Added to create some spacing from top */
+}
+
+/* Image Styling */
+.login-container img {
+    width: 100%;
+    max-height: 200px; /* Limit image height */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Input Styling */
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Button Styling */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007575; /* Matching button color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #005757; /* Darker teal on hover */
+}
+
+/* Text and Link Styling */
+.login-container p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.login-container a {
+    color: #007575; /* Matching link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.login-container a:hover {
+    color: #005757; /* Darker teal on hover */
+}
+
+/* Card Container Styling */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Card Styling */
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 300px;
+    cursor: pointer;
+}
+
+/* Image Inside Card */
+.card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Content Inside the Card */
+.card-content {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Title and Text Inside the Card */
+.card-content h3 {
+    font-size: 22px;
+    color: #006666;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Button Inside the Card */
+.card button {
+    padding: 10px 20px;
+    background-color: #0a6d75;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Button Hover Effect */
+.card button:hover {
+    background-color: #0056b3;
+}
+
+/* Animation on Hover */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        width: 90%; /* Adjust container size for smaller screens */
+    }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+    </style>
+    <link rel="stylesheet" href="style1.css"> <!-- Link to the login-specific CSS -->
+</head>
+<body>
+    <div class="login-container">
+        <form action="/login" method="post" id="loginForm">
+        <img src="trekathon.png" alt="Trekking Image"> <!-- Add a trekking image here -->
+        <input type="email" id="email" name="email" placeholder="Email Address" >
+        <input type="password" id="password" name="password" placeholder="Password">
+        <button type="submit" class="btn">Login</button>
+        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+        <p><a href="/forgetpassword">Forgot Password?</a></p> <!-- Link for password recovery -->
+        <p><a href="/indexl">Back to Home</a></p> <!-- Link back to the homepage -->
+        </form>
+    </div>
+</body>
+</html>
